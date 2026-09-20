@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agentic Document Intelligence | Local LLM & Governance Portal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header -->
+    <header class="navbar">
+      <div class="brand">
+        <div class="logo-badge">AI</div>
+        <div>
+          <h1>Enterprise Document Intelligence</h1>
+          <p class="subtitle">Local Open-Weight LLM Agent (Qwen 2.5 / DeepSeek-R1) • Lead: <a href="https://github.com/JayNabasu" target="_blank">Jerry Nabasu</a></p>
+        </div>
+      </div>
+      <div class="system-status">
+        <span class="status-indicator online"></span>
+        <span id="status-text">Ollama & Cache Ready</span>
+      </div>
+    </header>
+
+    <!-- Main Grid -->
+    <main class="main-content">
+      <!-- Left Panel: Input & Controls -->
+      <section class="panel input-panel">
+        <div class="panel-header">
+          <h2>Input Document</h2>
+          <div class="sample-buttons">
+            <button type="button" class="btn-secondary btn-sm" id="btn-sample-sdd">Load Sample SDD</button>
+            <button type="button" class="btn-secondary btn-sm" id="btn-sample-contract">Load Sample Contract</button>
+          </div>
+        </div>
+
+        <div class="controls-row">
+          <div class="control-group">
+            <label for="doc-type-select">Document Type</label>
+            <select id="doc-type-select">
+              <option value="SOLUTION_DESIGN_DOCUMENT">Solution Design Document (SDD)</option>
+              <option value="PRODUCT_REQUIREMENT_DOCUMENT">Product Requirement Document (PRD)</option>
+              <option value="VENDOR_CONTRACT">Vendor Engineering Contract</option>
+              <option value="HSE_INSPECTION_REPORT">HSE Inspection Report</option>
+              <option value="UPSTREAM_OPERATIONAL_LOG">Upstream Operational Log</option>
+            </select>
+          </div>
+
+          <div class="control-group">
+            <label for="model-select">LLM Engine</label>
+            <select id="model-select">
+              <option value="qwen2.5:7b">Qwen 2.5 7B (Recommended - Fast)</option>
+              <option value="deepseek-r1:7b">DeepSeek-R1 7B (Deep Reasoning)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="textarea-wrapper">
+          <textarea id="document-input" placeholder="Paste unstructured technical specification, Solution Design Document, engineering agreement, or well inspection report here..."></textarea>
+        </div>
+
+        <div class="action-row">
+          <button type="button" id="btn-analyze" class="btn-primary">
+            <span class="btn-text">Execute Agent Intelligence</span>
+            <span class="spinner" id="spinner" style="display: none;"></span>
+          </button>
+          <button type="button" id="btn-clear" class="btn-secondary">Clear</button>
+        </div>
+      </section>
+
+      <!-- Right Panel: Structured Output -->
+      <section class="panel output-panel">
+        <div class="panel-header">
+          <h2>Structured Extraction & Governance Audit</h2>
+          <div id="badge-cache" class="cache-badge" style="display: none;">Cached</div>
+        </div>
+
+        <div id="empty-state" class="empty-state">
+          <div class="empty-icon">📄</div>
+          <h3>No Document Analyzed Yet</h3>
+          <p>Paste a document or click one of the sample presets to run the localized agent intelligence pipeline.</p>
+        </div>
+
+        <div id="results-container" style="display: none;">
+          <!-- Top Verdict & Completeness Banner -->
+          <div class="verdict-banner" id="verdict-banner">
+            <div>
+              <div class="verdict-label">GOVERNANCE VERDICT</div>
+              <div class="verdict-value" id="verdict-value">APPROVED</div>
+            </div>
+            <div class="score-box">
+              <div class="score-label">Completeness</div>
+              <div class="score-value" id="completeness-score">92%</div>
+            </div>
+          </div>
+
+          <!-- Document Title & Summary -->
+          <div class="result-section">
+            <h3 id="res-doc-title">Document Title</h3>
+            <p id="res-doc-summary" class="summary-text"></p>
+          </div>
+
+          <!-- Extracted Entities Grid -->
+          <div class="result-section">
+            <h4>Extracted Enterprise Entities</h4>
+            <div class="entity-grid" id="entity-grid"></div>
+          </div>
+
+          <!-- Compliance & Risk Matrix -->
+          <div class="result-section">
+            <h4>Compliance & Governance Risks</h4>
+            <div class="risk-list" id="risk-list"></div>
+          </div>
+
+          <!-- Action Items -->
+          <div class="result-section">
+            <h4>Action Items & Recommendations</h4>
+            <ul class="action-list" id="action-list"></ul>
+          </div>
+
+          <!-- Metadata Footer -->
+          <div class="meta-footer">
+            <span id="meta-engine">Engine: Local LLM</span>
+            <span id="meta-latency">Latency: 0.12s</span>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
