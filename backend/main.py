@@ -87,12 +87,14 @@ def benchmarks_endpoint():
     }
 
 # Serve static web frontend if directory exists
-if FRONTEND_DIR.exists():
-    app.mount("/static", StaticFiles(directory=str(FRONTEND_DIR)), name="static")
-
 @app.get("/")
 def serve_index():
     index_path = FRONTEND_DIR / "index.html"
     if index_path.exists():
         return FileResponse(str(index_path))
     return {"message": "Agentic Document Intelligence API is operational. Visit /docs for OpenAPI specs."}
+
+if FRONTEND_DIR.exists():
+    app.mount("/static", StaticFiles(directory=str(FRONTEND_DIR)), name="static")
+    app.mount("/", StaticFiles(directory=str(FRONTEND_DIR)), name="frontend_root")
+
